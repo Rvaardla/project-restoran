@@ -2,8 +2,10 @@
 
 include '../config/db.php';
 session_start();
+if($_SESSION['user'] == ""){
+    header('location : ../login.php');
+}
 $id = $_SESSION['id_user'];
-
 $menu = mysqli_query($connection,'SELECT * FROM tb_menu');
 
 ?>
@@ -31,6 +33,7 @@ $menu = mysqli_query($connection,'SELECT * FROM tb_menu');
         <nav class="navbar navbar-expand-lg navbar-dark reverseColor rounded">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Resto</a>
+                <a href="../auth/logout.php" class="me-2 btn btn-danger">Logout</a>
             </div>
         </nav>
         <!-- hero content -->
@@ -40,10 +43,11 @@ $menu = mysqli_query($connection,'SELECT * FROM tb_menu');
         <div class="row mt-2">
             <?php while($row = mysqli_fetch_assoc($menu)) : ?>
             <div class="col-4">
-                <div class="card shadow">
+                <div class="card shadow reverseColor">
                     <div class="card-body">
-                        <span>Menu : <?= $row['namabarang'] ?></span><br>
-                        <span>Harga : Rp <?= $row['harga'] ?></span>
+                        <img src="../assets/img/<?= $row['foto'] ?>" alt="" class="img-thumbnail shadow mb-3">
+                        <span class="fw-bold h5">Menu : <?= $row['namabarang'] ?></span><br>
+                        <span class="fw-bold h5">Harga : Rp <?= $row['harga'] ?></span>
                     </div>
                 </div>
             </div>

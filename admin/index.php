@@ -46,28 +46,9 @@ $menu = mysqli_query($connection, 'SELECT * FROM tb_menu');
 
         <div class="row">
             <div class="col-12 text-center">
-
-                <a href="./create-menu.php" class="btn btn-primary mt-3">Menu</a>
-                <a href="./create-menu.php" class="btn btn-primary mt-3">User</a>
+                <a href="./create-indexUser.php" class="btn btn-primary mt-3">User</a>
+                <a href="./create-indexMenu.php" class="btn btn-primary mt-3">Menu</a>
             </div>
-        </div>
-        <div class="row mt-2">
-
-            <?php while ($row = mysqli_fetch_assoc($menu)) : ?>
-                <div class="col-4">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <span>Menu : <?= $row['namabarang'] ?></span><br>
-                            <span>Harga : Rp <?= $row['harga'] ?></span><br>
-                            <div class="mt-2">
-                                <a href="./delete-menu.php?id=<?= $row['id_menu'] ?>" class="btn btn-danger">Delete</a>
-                                <a href="./edit-menu.php?id=<?= $row['id_menu'] ?>" class="btn btn-success">Edit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endwhile ?>
-
         </div>
     </div>
 </body>

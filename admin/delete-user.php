@@ -9,7 +9,7 @@ $id = $_GET["id"];
 
 function deleteData($id){
     global $connection;
-    mysqli_query($connection,"DELETE FROM tb_menu WHERE id_menu = $id");
+    mysqli_query($connection,"DELETE FROM tb_user WHERE id_user = $id");
     return mysqli_affected_rows($connection);
 }
 
@@ -17,7 +17,7 @@ if(deleteData($id) > 0){
     echo'
     <script>
         alert("data delete has succesfully")
-        document.location.href = "create-indexMenu.php"
+        document.location.href = "create-indexUser.php"
     </script>';
 }
 

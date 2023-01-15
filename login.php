@@ -2,29 +2,25 @@
 
 include './config/db.php';
 session_start();
-if(isset($_POST["submit"])) {
+if (isset($_POST["submit"])) {
   $username = $_POST["username"];
   $password = $_POST["password"];
 
   //cek username
   $user = mysqli_query($connection, "SELECT * FROM tb_user WHERE username = '$username' AND password = '$password' ");
   $data = mysqli_fetch_assoc($user);
-  $data_id = $data ['id_user'];
-  if (mysqli_num_rows($user) === 1){
+  $data_id = $data['id_user'];
+  if (mysqli_num_rows($user) === 1) {
     //cek level
-    if($data['level'] == "admin") {
+    if ($data['level'] == "admin") {
       $_SESSION["admin"] = $username;
       $_SESSION["id_admin"] = $data_id;
       header('location: ./admin/index.php');
-      
-      
-    }else if($data["level"] == "user"){
+    } else if ($data["level"] == "user") {
       $_SESSION["user"] = $username;
       $_SESSION["id_user"] = $data_id;
       header('location: ./user/index.php');
-
-    }
-    else if($data["level"] == "kasir"){
+    } else if ($data["level"] == "kasir") {
       $_SESSION["kasir"] = $userrname;
       $_SESSION["id_kasir"] = $data_id;
       echo "
@@ -32,10 +28,15 @@ if(isset($_POST["submit"])) {
           document.location.herf = '../kasir-index.php'
       </script>
     ";
-
     }
+  } else {
+    echo "
+    <script>
+      alert('password salah')
+      document.location.href = './login.php'
+    </script>
+    ";
   }
-
 }
 
 ?>
@@ -53,14 +54,17 @@ if(isset($_POST["submit"])) {
 </head>
 <style>
   body {
-    background-color: #29a185;
+    background-color: #e2e8f0;
+  }
+
+  .login {
+    background-color: #ffb648;
   }
 </style>
+
 <body>
-
-
-    <div class="card mt-5 col-sm-3 mx-auto shadow">
-      <div class="card-header h5 shadow">
+  <div class="card mt-5 col-sm-3 mx-auto shadow login">
+    <div class="card-header h5 shadow text-white">
       Form Login
     </div>
     <div class="card-body my-2">
@@ -72,6 +76,7 @@ if(isset($_POST["submit"])) {
           <input type="password" class="form-control" name="password" placeholder="password">
         </div>
         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+        <a href="./register.php" class="text-primary fw-bold">Register</a>
       </form>
     </div>
   </div>

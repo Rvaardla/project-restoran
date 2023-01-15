@@ -1,15 +1,11 @@
 <?php
 
-session_start();
 include '../config/db.php';
-if ($_SESSION["admin"] == "") {
-    header('location: ../login.php');
-}
+session_start();
 
-$menus = mysqli_query($connection,'SELECT * FROM tb_menu');
+$datas = mysqli_query($connection,'SELECT * FROM tb_user');
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,33 +38,19 @@ $menus = mysqli_query($connection,'SELECT * FROM tb_menu');
         </div>
         <div class="row">
             <div class="col-12 text-center">
-
-                <a href="./create-menu.php" class="btn btn-primary mt-3">Menu</a>
-                <a href="./create-menu.php" class="btn btn-primary mt-3">User</a>
+                <a href="./create-indexMenu.php" class="btn btn-primary mt-3">Menu</a>
+                <a href="./index.php" class="btn btn-danger mt-3">Back</a>
             </div>
             <div class="row mt-2">
-            <div class="col-12">
-                <form action="post" enctype="multipart/form-data">
-                    <div class="form-group mb-2">
-                        <input type="text" placeholder="Nama Menu" class="form-control">
-                    </div>
-                    <div class="form-group mb-2">
-                        <input type="file" class="form-control" name="name_image">
-                    </div>
-                    <div class="form-group mb-2">
-                        <input type="number" placeholder="Harga" name="harga" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <?php while ($row = mysqli_fetch_assoc($menus)) : ?>
-                <div class="col-4">
+            <?php while ($row = mysqli_fetch_assoc($datas)) : ?>
+                <div class="col-4 my-4">
                     <div class="card shadow">
                         <div class="card-body">
-                            <span>Menu : <?= $row['namabarang'] ?></span><br>
-                            <span>Harga : Rp <?= $row['harga'] ?></span><br>
+                            <span>Username : <?= $row['username'] ?></span><br>
+                            <span>Level : <?= $row['level'] ?></span><br>
                             <div class="mt-2">
-                                <a href="./delete-menu.php?id=<?= $row['id_menu'] ?>" class="btn btn-danger">Delete</a>
-                                <a href="./edit-menu.php?id=<?= $row['id_menu'] ?>" class="btn btn-success">Edit</a>
+                                <a href="./delete-user.php?id=<?= $row['id_user'] ?>" class="btn btn-danger">Delete</a>
+                                <a href="./editMenu.php?id=<?= $row['id_user'] ?>" class="btn btn-success">Edit</a>
                             </div>
                         </div>
                     </div>
