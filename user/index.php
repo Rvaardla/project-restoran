@@ -6,7 +6,37 @@ if($_SESSION['user'] == ""){
     header('location : ../login.php');
 }
 $id = $_SESSION['id_user'];
+
 $menu = mysqli_query($connection,'SELECT * FROM tb_menu');
+function createCart($data){
+    global $connection;
+    $id_user = $data["id_user"];
+    $id_menu = $data["id_menu"];
+    $quantity = $data["quantity"];
+    $total = $quantity * $data["price"];
+
+    mysqli_query($connection,"INSERT INTO tb_cart VALUES(
+        '',
+        '$id_menu',
+        '$id_user',
+        '$quantity',
+        '$total'
+    )");
+
+    return mysqli_affected_rows($connection);
+}
+
+if(isset($_POST["add-to-cart"])){
+    if(createCart($_POST) > 0 ){
+        echo "
+        <script>
+            alert('keranjang di tambahkan')
+            document.location.href = 'index.php'
+        </script>
+        ";
+    }
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -41,13 +71,23 @@ $menu = mysqli_query($connection,'SELECT * FROM tb_menu');
             <h1 class="" style="text-transform: capitalize;">Hello, <?= $_SESSION["user"] ?></h1>
         </div>
         <div class="row mt-2">
+            <div class="col-12 mb-3 text-center">
+                <a href="./cart.php" class="btn btn-primary">Keranjang</a>
+            </div>
             <?php while($row = mysqli_fetch_assoc($menu)) : ?>
             <div class="col-4">
                 <div class="card shadow reverseColor">
                     <div class="card-body">
-                        <img src="../assets/img/<?= $row['foto'] ?>" alt="" class="img-thumbnail shadow mb-3">
-                        <span class="fw-bold h5">Menu : <?= $row['namabarang'] ?></span><br>
-                        <span class="fw-bold h5">Harga : Rp <?= $row['harga'] ?></span>
+                        <form method="post">
+                            <input type="hidden" name="id_user" value="<?= $_SESSION["id_user"] ?>">
+                            <input type="hidden" name="id_menu" value="<?= $row["id_menu"] ?>">
+                            <input type="hidden" name="price" value="<?= $row["price"] ?>">
+                            <img src="../assets/img/<?= $row['image_menu'] ?>" alt="" class="img-thumbnail shadow mb-3">
+                            <span class="fw-bold h5">Menu : <?= $row['name'] ?></span><br>
+                            <span class="fw-bold h5 block">Harga : Rp <?= $row['price'] ?></span><br>
+                            <input type="number" name="quantity" id="" value="1" class="form-control">
+                            <button type="submit" name="add-to-cart" class="btn btn-success mt-2">Add Cart</button>
+                        </form>
                     </div>
                 </div>
             </div>

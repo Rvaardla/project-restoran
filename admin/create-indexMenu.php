@@ -16,7 +16,11 @@ function imageMenu(){
 
     // check if no images are uploaded
     if( $error === 4 ){
-        echo "please upload image!";
+        echo "
+        <script>
+            alert('please upload image!!')
+        </script>
+        ";
     }
 
     // check extension image
@@ -56,8 +60,8 @@ function create($data)
     mysqli_query($connection, "INSERT INTO tb_menu VALUES(
         '',
         '$name',
-        '$image_name',
-        '$price'
+        '$price',
+        '$image_name'
     )");
 
     return mysqli_affected_rows($connection);
@@ -116,13 +120,13 @@ if(isset($_POST["submit"])){
             <div class="col-12">
                 <form method="post" enctype="multipart/form-data">
                     <div class="form-group mb-2">
-                        <input type="text" placeholder="Nama Menu" class="form-control shadow" name="name">
+                        <input type="text" placeholder="Nama Menu" class="form-control shadow" name="name" required>
                     </div>
                     <div class="form-group mb-2">
-                        <input type="file" class="form-control" name="image_name">
+                        <input type="file" class="form-control" name="image_name" required>
                     </div>
                     <div class="form-group mb-2">
-                        <input type="number" placeholder="Harga" name="price" class="form-control shadow">
+                        <input type="number" placeholder="Harga" name="price" class="form-control shadow" required>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Store data</button>
                 </form>
@@ -130,10 +134,10 @@ if(isset($_POST["submit"])){
             <?php while ($row = mysqli_fetch_assoc($menus)) : ?>
                 <div class="col-4 my-4">
                     <div class="card shadow">
-                    <img src="../assets/img/<?= $row['foto'] ?>" class="card-img-top" alt="...">
+                    <img src="../assets/img/<?= $row['image_menu'] ?>" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <span>Menu : <?= $row['namabarang'] ?></span><br>
-                            <span>Harga : Rp <?= $row['harga'] ?></span><br>
+                            <span>Menu : <?= $row['name'] ?></span><br>
+                            <span>Harga : Rp <?= $row['price'] ?></span><br>
                             <div class="mt-2">
                                 <a href="./delete-menu.php?id=<?= $row['id_menu'] ?>" class="btn btn-danger">Delete</a>
                                 <a href="./editMenu.php?id=<?= $row['id_menu'] ?>" class="btn btn-success">Edit</a>
