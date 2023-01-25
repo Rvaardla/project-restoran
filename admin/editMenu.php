@@ -94,18 +94,18 @@ if (isset($_POST["submit"])) {
         <div class="card-body my-2">
             <form action="" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id_menu" value="<?= $row["id_menu"] ?>">
-                <input type="hidden" name="imageOld" value="<?= $row["foto"] ?>">
+                <input type="hidden" name="imageOld" value="<?= $row["image_menu"] ?>">
                 <div class="form-group mb-1">
-                    <img src="../assets/img/<?= $row['foto'] ?>" alt="" srcset="" class="img-thumbnail">
+                    <img src="../assets/img/<?= $row['image_menu'] ?>" alt="" srcset="" class="img-thumbnail">
                 </div>
                 <div class="form-group mb-1">
-                    <input type="text" class="form-control" name="name" placeholder="Menu" value="<?= $row['namabarang'] ?>">
+                    <input type="text" class="form-control" name="name" placeholder="Menu" value="<?= $row['name'] ?>">
                 </div>
                 <div class="form-group mb-1">
-                    <input type="file" class="form-control" name="image" placeholder="Menu" value="<?= $row['namabarang'] ?>">
+                    <input type="file" class="form-control" name="image" placeholder="Menu" value="<?= $row['image_menu'] ?>">
                 </div>
                 <div class="form-group mb-3">
-                    <input type="number" class="form-control" name="price" placeholder="harga" value="<?= $row['harga'] ?>">
+                    <input type="number" class="form-control" name="price" placeholder="harga" value="<?= $row['price'] ?>">
                 </div>
                 <button type="submit" class="btn btn-primary" name="submit">Edit</button>
                 <a href="./create-indexMenu.php" class="btn btn-danger">Back</a>

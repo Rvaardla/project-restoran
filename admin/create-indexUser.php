@@ -50,7 +50,7 @@ $datas = mysqli_query($connection,'SELECT * FROM tb_user');
                             <span>Level : <?= $row['level'] ?></span><br>
                             <div class="mt-2">
                                 <a href="./delete-user.php?id=<?= $row['id_user'] ?>" class="btn btn-danger">Delete</a>
-                                <a href="./editMenu.php?id=<?= $row['id_user'] ?>" class="btn btn-success">Edit</a>
+                                <a href="./editUser.php?id=<?= $row['id_user'] ?>" class="btn btn-success">Edit</a>
                             </div>
                         </div>
                     </div>
